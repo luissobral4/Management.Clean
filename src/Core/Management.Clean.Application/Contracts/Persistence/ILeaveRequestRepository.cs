@@ -1,6 +1,6 @@
 ﻿using Management.Clean.Domain;
 
-namespace Management.Clean.Application.Contrats.Persistence;
+namespace Management.Clean.Application.Contracts.Persistence;
 
 public interface ILeaveRequestRepository : IGenericRepository<LeaveRequest>
 {

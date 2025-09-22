@@ -1,4 +1,4 @@
-using Management.Clean.Application.Contrats.Persistence;
+using Management.Clean.Application.Contracts.Persistence;
 using Management.Clean.Domain;
 using Management.Clean.Persistence.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +13,6 @@ public class LeaveTypeRepository : GenericRepository<LeaveType>, ILeaveTypeRepos
 
     public async Task<bool> IsLeaveTypeUniqueAsync(string name)
     {
-        return await _context.LeaveTypes.AnyAsync(lt => lt.Name == name);
+        return !await _context.LeaveTypes.AnyAsync(lt => lt.Name == name);
     }
 }

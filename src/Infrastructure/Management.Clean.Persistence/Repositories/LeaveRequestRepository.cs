@@ -1,4 +1,4 @@
-using Management.Clean.Application.Contrats.Persistence;
+using Management.Clean.Application.Contracts.Persistence;
 using Management.Clean.Domain;
 using Management.Clean.Persistence.DatabaseContext;
 using Microsoft.EntityFrameworkCore;

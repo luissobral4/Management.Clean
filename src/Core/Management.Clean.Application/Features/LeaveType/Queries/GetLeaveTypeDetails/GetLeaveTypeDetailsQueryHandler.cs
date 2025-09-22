@@ -1,4 +1,4 @@
-using Management.Clean.Application.Contrats.Persistence;
+using Management.Clean.Application.Contracts.Persistence;
 using MediatR;
 using AutoMapper;
 using Management.Clean.Application.Exceptions;

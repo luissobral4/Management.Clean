@@ -1,0 +1,26 @@
+@Management.Clean.Api_HostAddress = http://localhost:7112
+
+GET {{Management.Clean.Api_HostAddress}}/api/LeaveTypes
+Accept: application/json
+
+GET {{Management.Clean.Api_HostAddress}}/api/LeaveTypes/1
+Accept: application/json
+
+DELETE {{Management.Clean.Api_HostAddress}}/api/LeaveTypes/0
+Accept: application/json
+
+PUT {{Management.Clean.Api_HostAddress}}/api/LeaveTypes/2
+Content-Type: application/json
+{
+    "Name": "Test1",
+    "DefaultDays": 3
+}
+
+POST {{Management.Clean.Api_HostAddress}}/api/LeaveTypes
+Content-Type: application/json
+{
+    "Name": "Test1",
+    "DefaultDays": 2
+}
+
+###

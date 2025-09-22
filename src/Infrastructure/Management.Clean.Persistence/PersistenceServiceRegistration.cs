@@ -1,4 +1,4 @@
-using Management.Clean.Application.Contrats.Persistence;
+using Management.Clean.Application.Contracts.Persistence;
 using Management.Clean.Persistence.Constants;
 using Management.Clean.Persistence.DatabaseContext;
 using Management.Clean.Persistence.Repositories;

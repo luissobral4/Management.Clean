@@ -1,6 +1,6 @@
 using FluentValidation;
 using Management.Clean.Application.Constants;
-using Management.Clean.Application.Contrats.Persistence;
+using Management.Clean.Application.Contracts.Persistence;
 using Management.Clean.Application.Features.Common;
 using Management.Clean.Domain;
 
@@ -12,6 +12,10 @@ public class UpdateLeaveTypeCommandValidator : AbstractValidator<UpdateLeaveType
 
     public UpdateLeaveTypeCommandValidator(ILeaveTypeRepository leaveTypeRepository)
     {
+        RuleFor(p => p.Id)
+            .NotNull()
+            .MustAsync(leaveTypeMustExist);
+
         RuleFor(p => p.Name)
             .NotEmpty().WithMessage(ValidationMessages.PropertyRequired(Properties.Name))
             .NotNull()
@@ -26,6 +30,13 @@ public class UpdateLeaveTypeCommandValidator : AbstractValidator<UpdateLeaveType
             .WithMessage(ValidationMessages.ObjectAlreadyExists(nameof(LeaveType)));
 
         _leaveTypeRepository = leaveTypeRepository;
+    }
+
+    private async Task<bool> leaveTypeMustExist(int id, CancellationToken token)
+    {
+        var leaveType = await _leaveTypeRepository.GetByIdAsync(id);
+
+        return leaveType != null;
     }
 
     private Task<bool> LeaveTypeNameUnique(UpdateLeaveTypeCommand command, CancellationToken token)

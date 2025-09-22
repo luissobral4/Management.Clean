@@ -1,5 +1,5 @@
 using AutoMapper;
-using Management.Clean.Application.Contrats.Persistence;
+using Management.Clean.Application.Contracts.Persistence;
 using Management.Clean.Application.Exceptions;
 using Management.Clean.Application.Features.Common;
 using MediatR;
@@ -22,7 +22,7 @@ public class CreateLeaveTypeCommandHandler : IRequestHandler<CreateLeaveTypeComm
         var validationResult = await validator.ValidateAsync(request);
 
         if (validationResult.Errors.Any())
-            throw new NotFoundException(ValidationMessages.ObjectInvalid(nameof(LeaveType)), validationResult);
+            throw new BadRequestException(ValidationMessages.ObjectInvalid(nameof(LeaveType)), validationResult);
 
         var leaveTypeToCreate = _mapper.Map<Domain.LeaveType>(request);
 

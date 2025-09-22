@@ -1,6 +1,6 @@
 using FluentValidation;
 using Management.Clean.Application.Constants;
-using Management.Clean.Application.Contrats.Persistence;
+using Management.Clean.Application.Contracts.Persistence;
 using Management.Clean.Application.Features.Common;
 using Management.Clean.Domain;
 
