@@ -8,3 +8,19 @@ public class LeaveAllocation : BaseEntity
     public int Period { get; set; }
     public string EmployeeId { get; set; } = string.Empty;
 }
+
+public struct LeaveAllocationConstants
+{
+    public struct Props
+    {
+        public struct LeaveTypeId
+        {
+            public const int MIN_LENGTH = 0;
+        }
+
+        public struct NumberOfDays
+        {
+            public const int MIN_LENGTH = 0;
+        }
+    }
+}

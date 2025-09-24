@@ -2,5 +2,8 @@ namespace Management.Clean.Application.Features.Common;
 
 public static class LogMessages
 {
-    public const string LeaveTypesRetrieved = "Leave Types were retrieved successfully.";
+    private static string ObjectRetrieved(string type) => $"Leave {type} were retrieved successfully.";
+    public static readonly string LeaveTypesRetrieved = ObjectRetrieved("Types");
+    public static readonly string LeaveAllocationsRetrieved = ObjectRetrieved("Allocations");
+    public static readonly string LeaveRequestsRetrieved = ObjectRetrieved("Requests");
 }

@@ -16,3 +16,14 @@ public class LeaveRequest : BaseEntity
 
     public string RequestingEmployeeId { get; set; } = string.Empty;
 }
+
+public struct LeaveRequestConstants
+{
+    public struct Props
+    {
+        public struct LeaveTypeId
+        {
+            public const int MIN_LENGTH = 0;
+        }
+    }
+}
