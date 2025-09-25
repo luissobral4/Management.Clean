@@ -46,7 +46,7 @@ public class CreateLeaveRequestCommandHandler : IRequestHandler<CreateLeaveReque
 
         await _leaveRequestRepository.CreateAsync(leaveRequestToCreate);
 
-         try
+        try
         {
             var email = new EmailMessage
             {

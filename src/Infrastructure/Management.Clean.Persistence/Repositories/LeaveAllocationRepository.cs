@@ -13,7 +13,8 @@ public class LeaveAllocationRepository : GenericRepository<LeaveAllocation>, ILe
 
     public async Task AddAllocationsAsync(List<LeaveAllocation> allocations)
     {
-        await _context.AddAsync(allocations);
+        await _context.AddRangeAsync(allocations);
+        await _context.SaveChangesAsync();
     }
 
     public async Task<bool> AllocationExistsAsync(string userId, int leaveTypeId, int period)

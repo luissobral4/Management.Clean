@@ -27,7 +27,7 @@ public class BaseLeaveRequestValidator : AbstractValidator<BaseLeaveRequest>
             .WithMessage(ValidationMessages.DateMustBeBefore(nameof(LeaveRequestDto.StartDate), nameof(LeaveRequestDto.EndDate)));
 
         RuleFor(p => p.EndDate)
-            .LessThan(p => p.StartDate)
+            .GreaterThan(p => p.StartDate)
             .WithMessage(ValidationMessages.DateMustBeBefore(nameof(LeaveRequestDto.EndDate), nameof(LeaveRequestDto.StartDate)));
     }
     

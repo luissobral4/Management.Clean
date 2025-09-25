@@ -28,7 +28,11 @@ GET {{Management.Clean.Api_HostAddress}}/api/LeaveTypes/1
 Accept: application/json
 Authorization: Bearer {{token}}
 
-DELETE {{Management.Clean.Api_HostAddress}}/api/LeaveTypes/0
+DELETE {{Management.Clean.Api_HostAddress}}/api/LeaveTypes/2
+Accept: application/json
+Authorization: Bearer {{token}}
+
+DELETE {{Management.Clean.Api_HostAddress}}/api/LeaveAllocations/3
 Accept: application/json
 Authorization: Bearer {{token}}
 
@@ -46,4 +50,20 @@ Content-Type: application/json
     "DefaultDays": 2
 }
 
+POST {{Management.Clean.Api_HostAddress}}/api/LeaveAllocations
+Content-Type: application/json
+Authorization: Bearer {{token}}
+{
+    "LeaveTypeId": 1
+}
+
+POST {{Management.Clean.Api_HostAddress}}/api/LeaveRequests
+Content-Type: application/json
+Authorization: Bearer {{token}}
+{
+    "StartDate": "2025-09-01",
+    "EndDate": "2025-09-05",
+    "LeaveTypeId": 1,
+    "RequestComments": "Going on vacation"
+}
 ###
