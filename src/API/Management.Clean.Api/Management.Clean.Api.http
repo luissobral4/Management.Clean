@@ -1,13 +1,36 @@
 @Management.Clean.Api_HostAddress = http://localhost:7112
+@token=mytoken32423423
+
+POST {{Management.Clean.Api_HostAddress}}/api/Auth/login
+Content-Type: application/json
+Accept: application/json
+{
+    "Email": "admin@localhost.com",
+    "Password": "P@ssword1"
+}
+{{
+    exports.token = response.parsedBody.token
+}}
 
 GET {{Management.Clean.Api_HostAddress}}/api/LeaveTypes
 Accept: application/json
+Authorization: Bearer {{token}}
+
+GET {{Management.Clean.Api_HostAddress}}/api/LeaveAllocations
+Accept: application/json
+Authorization: Bearer {{token}}
+
+GET {{Management.Clean.Api_HostAddress}}/api/LeaveRequests
+Accept: application/json
+Authorization: Bearer {{token}}
 
 GET {{Management.Clean.Api_HostAddress}}/api/LeaveTypes/1
 Accept: application/json
+Authorization: Bearer {{token}}
 
 DELETE {{Management.Clean.Api_HostAddress}}/api/LeaveTypes/0
 Accept: application/json
+Authorization: Bearer {{token}}
 
 PUT {{Management.Clean.Api_HostAddress}}/api/LeaveTypes/2
 Content-Type: application/json

@@ -8,4 +8,5 @@ public static class Properties
     public const string LeaveTypeId = "Leave type id";
     public const string Period = "Period";
     public const string NumberOfDays = "NumberOfDays";
+    public const string User = "User";
 }

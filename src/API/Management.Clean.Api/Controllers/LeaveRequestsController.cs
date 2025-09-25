@@ -6,6 +6,7 @@ using Management.Clean.Application.Features.LeaveRequest.Commands.UpdateLeaveReq
 using Management.Clean.Application.Features.LeaveRequest.Queries.GetAllLeaveRequests;
 using Management.Clean.Application.Features.LeaveRequest.Queries.GetLeaveRequestDetails;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Management.Clean.Api.Controllers;
@@ -13,6 +14,7 @@ namespace Management.Clean.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class LeaveRequestsController : ControllerBase
 {
     private readonly IMediator _mediator;

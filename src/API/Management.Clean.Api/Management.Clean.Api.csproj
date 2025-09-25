@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="../../Core/Management.Clean.Application/Management.Clean.Application.csproj" />
+    <ProjectReference Include="../../Infrastructure/Management.Clean.Identity/Management.Clean.Identity.csproj" />
     <ProjectReference Include="../../Infrastructure/Management.Clean.Infrastructure/Management.Clean.Infrastructure.csproj" />
     <ProjectReference Include="../../Infrastructure/Management.Clean.Persistence/Management.Clean.Persistence.csproj" />
   </ItemGroup>

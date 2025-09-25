@@ -4,6 +4,7 @@ using Management.Clean.Application.Features.LeaveType.Commands.UpdateLeaveType;
 using Management.Clean.Application.Features.LeaveType.Queries.GetAllLeaveTypes;
 using Management.Clean.Application.Features.LeaveType.Queries.GetLeaveTypeDetails;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Management.Clean.Api.Controllers;
@@ -11,6 +12,7 @@ namespace Management.Clean.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class LeaveTypesController : ControllerBase
 {
     private readonly IMediator _mediator;

@@ -11,4 +11,5 @@ public static class ValidationMessages
     public static string DateMustBeAfter(string objectType, string comparisonValue) => $"{objectType} must be after {comparisonValue}.";
     public static string DateMustBeBefore(string objectType, string comparisonValue) => $"{objectType} must be before {comparisonValue}.";
     public const string UpdateInvalid = "Validation errors in update request for {0} - {1}.";
+    public static string CredentialsInvalid(string id) => $"Invalid credentials for {id}.";
 }

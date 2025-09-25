@@ -4,6 +4,7 @@ using Management.Clean.Application.Features.LeaveAllocation.Commands.UpdateLeave
 using Management.Clean.Application.Features.LeaveAllocation.Queries.GetAllLeaveAllocations;
 using Management.Clean.Application.Features.LeaveAllocation.Queries.GetLeaveAllocationDetails;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Management.Clean.Api.Controllers;
@@ -11,6 +12,7 @@ namespace Management.Clean.Api.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class LeaveAllocationsController : ControllerBase
 {
     private readonly IMediator _mediator;
