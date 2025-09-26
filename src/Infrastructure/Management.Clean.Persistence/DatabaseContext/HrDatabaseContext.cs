@@ -1,13 +1,15 @@
+using Management.Clean.Application.Contracts.Identity;
 using Management.Clean.Domain;
-using Management.Clean.Persistence.Configurations;
 using Microsoft.EntityFrameworkCore;
 
 namespace Management.Clean.Persistence.DatabaseContext;
 
 public class HrDatabaseContext : DbContext
 {
-    public HrDatabaseContext(DbContextOptions<HrDatabaseContext> options) : base(options)
+    private readonly IUserService _userService;
+    public HrDatabaseContext(DbContextOptions<HrDatabaseContext> options, IUserService userService) : base(options)
     {
+        _userService = userService;
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -27,10 +29,12 @@ public class HrDatabaseContext : DbContext
             .Where(q => q.State == EntityState.Added || q.State == EntityState.Modified))
         {
             entry.Entity.DateModified = DateTime.UtcNow;
+            entry.Entity.ModifiedBy = _userService.UserId;
 
             if (entry.State == EntityState.Added)
             {
                 entry.Entity.DateCreated = DateTime.UtcNow;
+                entry.Entity.CreatedBy = _userService.UserId;
             }
         }
 

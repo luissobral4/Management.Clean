@@ -5,7 +5,7 @@ POST {{Management.Clean.Api_HostAddress}}/api/Auth/login
 Content-Type: application/json
 Accept: application/json
 {
-    "Email": "user@localhost.com",
+    "Email": "ser@localhost.com",
     "Password": "P@ssword1"
 }
 {{

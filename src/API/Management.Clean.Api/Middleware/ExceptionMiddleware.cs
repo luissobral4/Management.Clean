@@ -1,16 +1,19 @@
 using System.Net;
 using Management.Clean.Api.Middleware.Models;
 using Management.Clean.Application.Exceptions;
+using Newtonsoft.Json;
 
 namespace Management.Clean.Api.Middleware;
 
 public class ExceptionMiddleware
 {
     private readonly RequestDelegate _next;
+    private readonly ILogger<ExceptionMiddleware> _logger;
 
-    public ExceptionMiddleware(RequestDelegate next)
+    public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
     {
         _next = next;
+        _logger = logger;
     }
 
     public async Task InvokeAsync(HttpContext httpContext)
@@ -67,6 +70,8 @@ public class ExceptionMiddleware
         }
 
         httpContext.Response.StatusCode = (int)statusCode;
+        var logMessage = JsonConvert.SerializeObject(problem);
+        _logger.LogError(logMessage);
         await httpContext.Response.WriteAsJsonAsync(problem);
     }
 }
