@@ -3,6 +3,7 @@ using Management.Clean.Application.Features.LeaveAllocation.Commands.CreateLeave
 using Management.Clean.Application.Features.LeaveAllocation.Commands.UpdateLeaveAllocation;
 using Management.Clean.Application.Features.LeaveAllocation.Queries.GetAllLeaveAllocations;
 using Management.Clean.Application.Features.LeaveAllocation.Queries.GetLeaveAllocationDetails;
+using Management.Clean.Application.Features.LeaveRequest.Commands.ChangeLeaveRequestApproval;
 using Management.Clean.Domain;
 
 namespace Management.Clean.Application.MappingProfiles;
@@ -15,5 +16,6 @@ public class LeaveAllocationProfile : Profile
         CreateMap<LeaveAllocation, LeaveAllocationDetailsDto>();
         CreateMap<CreateLeaveAllocationCommand, LeaveAllocation>();
         CreateMap<UpdateLeaveAllocationCommand, LeaveAllocation>();
+        CreateMap<ChangeLeaveRequestApprovalCommand, LeaveRequest>();
     }
 }

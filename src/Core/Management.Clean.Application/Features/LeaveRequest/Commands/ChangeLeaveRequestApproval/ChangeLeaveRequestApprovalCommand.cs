@@ -1,4 +1,3 @@
-using Management.Clean.Application.Features.LeaveRequest.Shared;
 using MediatR;
 
 namespace Management.Clean.Application.Features.LeaveRequest.Commands.ChangeLeaveRequestApproval;

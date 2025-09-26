@@ -5,7 +5,7 @@ POST {{Management.Clean.Api_HostAddress}}/api/Auth/login
 Content-Type: application/json
 Accept: application/json
 {
-    "Email": "admin@localhost.com",
+    "Email": "user@localhost.com",
     "Password": "P@ssword1"
 }
 {{
@@ -33,6 +33,10 @@ Accept: application/json
 Authorization: Bearer {{token}}
 
 DELETE {{Management.Clean.Api_HostAddress}}/api/LeaveAllocations/3
+Accept: application/json
+Authorization: Bearer {{token}}
+
+DELETE {{Management.Clean.Api_HostAddress}}/api/LeaveRequests/1
 Accept: application/json
 Authorization: Bearer {{token}}
 
@@ -64,6 +68,21 @@ Authorization: Bearer {{token}}
     "StartDate": "2025-09-01",
     "EndDate": "2025-09-05",
     "LeaveTypeId": 1,
-    "RequestComments": "Going on vacation"
+    "RequestComments": "Going on vacation to the beach with family."
+}
+
+PUT {{Management.Clean.Api_HostAddress}}/api/LeaveRequests/UpdateApproval
+Content-Type: application/json
+Authorization: Bearer {{token}}
+{
+    "Id": 5,
+    "Approved": true
+}
+
+PUT {{Management.Clean.Api_HostAddress}}/api/LeaveRequests/CancelRequest
+Content-Type: application/json
+Authorization: Bearer {{token}}
+{
+    "Id": 5
 }
 ###

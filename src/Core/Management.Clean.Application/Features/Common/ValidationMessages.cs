@@ -12,4 +12,6 @@ public static class ValidationMessages
     public static string DateMustBeBefore(string objectType, string comparisonValue) => $"{objectType} must be before {comparisonValue}.";
     public const string UpdateInvalid = "Validation errors in update request for {0} - {1}.";
     public static string CredentialsInvalid(string id) => $"Invalid credentials for {id}.";
+    public const string RequestAllocationsIsNull = "You do not have any allocations for this leave type.";
+    public const string RequestDaysInvalid = "You do not have enough days for this request.";
 }

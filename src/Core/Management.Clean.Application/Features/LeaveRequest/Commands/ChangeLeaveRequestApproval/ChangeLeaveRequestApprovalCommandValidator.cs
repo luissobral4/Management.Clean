@@ -10,6 +10,6 @@ public class ChangeLeaveRequestApprovalCommandValidator : AbstractValidator<Chan
     {
         RuleFor(p => p.Approved)
             .NotNull()
-            .WithMessage(ValidationMessages.PropertyRequired(nameof(LeaveRequestDto.Approved)));
+            .WithMessage(ValidationMessages.PropertyRequired(nameof(ChangeLeaveRequestApprovalCommand.Approved)));
     }
 }

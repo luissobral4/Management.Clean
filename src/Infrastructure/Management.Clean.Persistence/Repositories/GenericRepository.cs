@@ -13,10 +13,12 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         _context = context;
     }
-    public async Task CreateAsync(T entity)
+    public async Task<int> CreateAsync(T entity)
     {
-        await _context.AddAsync(entity);
+        var entityCreated = await _context.AddAsync(entity);
         await _context.SaveChangesAsync();
+
+        return entityCreated.Entity.Id;
     }
 
     public async Task DeleteAsync(T entity)

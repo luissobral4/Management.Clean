@@ -2,4 +2,7 @@ using MediatR;
 
 namespace Management.Clean.Application.Features.LeaveRequest.Queries.GetAllLeaveRequests;
 
-public record GetLeaveRequestsQuery : IRequest<List<LeaveRequestDto>>;
+public record GetLeaveRequestsQuery : IRequest<List<LeaveRequestDto>>
+{
+    public bool IsLoggedInUser { get; set; }
+}

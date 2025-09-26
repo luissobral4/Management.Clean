@@ -11,23 +11,20 @@ namespace Management.Clean.Application.Features.LeaveRequest.Commands.ChangeLeav
 
 public class ChangeLeaveRequestApprovalCommandHandler : IRequestHandler<ChangeLeaveRequestApprovalCommand, Unit>
 {
-    private readonly IMapper _mapper;
-    private readonly ILeaveTypeRepository _leaveTypeRepository;
     private readonly ILeaveRequestRepository _leaveRequestRepository;
+    private readonly ILeaveAllocationRepository _leaveAllocationRepository;
     private readonly IEmailSender _emailSender;
     private readonly IAppLogger<ChangeLeaveRequestApprovalCommandHandler> _logger;
 
     public ChangeLeaveRequestApprovalCommandHandler(
-        IMapper mapper,
-        ILeaveTypeRepository leaveTypeRepository,
         ILeaveRequestRepository leaveRequestRepository,
+        ILeaveAllocationRepository leaveAllocationRepository,
         IEmailSender emailSender,
         IAppLogger<ChangeLeaveRequestApprovalCommandHandler> logger
     )
     {
-        _mapper = mapper;
-        _leaveTypeRepository = leaveTypeRepository;
         _leaveRequestRepository = leaveRequestRepository;
+        _leaveAllocationRepository = leaveAllocationRepository;
         _emailSender = emailSender;
         _logger = logger;
     }
@@ -47,21 +44,34 @@ public class ChangeLeaveRequestApprovalCommandHandler : IRequestHandler<ChangeLe
         leaveRequest.Approved = request.Approved;
         await _leaveRequestRepository.UpdateAsync(leaveRequest);
 
-        try
-        {
-            var email = new EmailMessage
-            {
-                To = string.Empty,
-                Subject = EmailParams.SubjectRequestStatusUpdated,
-                Body = EmailParams.BodyStatusUpdated(leaveRequest.StartDate, leaveRequest.EndDate)
-            };
 
-            await _emailSender.SendEmailAsync(email);
-        }
-        catch (Exception ex)
+        if (request.Approved)
         {
-            _logger.LogWarning(ex.Message);
+            int daysRequested = HelperFunctions.CalculateRequestedDays(leaveRequest.StartDate, leaveRequest.EndDate);
+            var allocation = await _leaveAllocationRepository.GetUserAllocationsAsync(
+                leaveRequest.RequestingEmployeeId,
+                leaveRequest.LeaveTypeId
+            );
+            allocation.NumberOfDays -= daysRequested;
+
+            await _leaveAllocationRepository.UpdateAsync(allocation);
         }
+
+        try
+            {
+                var email = new EmailMessage
+                {
+                    To = string.Empty,
+                    Subject = EmailParams.SubjectRequestStatusUpdated,
+                    Body = EmailParams.BodyStatusUpdated(leaveRequest.StartDate, leaveRequest.EndDate)
+                };
+
+                await _emailSender.SendEmailAsync(email);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex.Message);
+            }
 
         return Unit.Value;
     }

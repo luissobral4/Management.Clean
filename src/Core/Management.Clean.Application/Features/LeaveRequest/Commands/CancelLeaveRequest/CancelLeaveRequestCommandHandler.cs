@@ -11,16 +11,19 @@ namespace Management.Clean.Application.Features.LeaveRequest.Commands.CancelLeav
 public class CancelLeaveRequestCommandHandler : IRequestHandler<CancelLeaveRequestCommand>
 {
     private readonly ILeaveRequestRepository _leaveRequestRepository;
+    private readonly ILeaveAllocationRepository _leaveAllocationRepository;
     private readonly IEmailSender _emailSender;
     private readonly IAppLogger<CancelLeaveRequestCommandHandler> _logger;
 
     public CancelLeaveRequestCommandHandler(
         ILeaveRequestRepository leaveRequestRepository,
+        ILeaveAllocationRepository leaveAllocationRepository,
         IEmailSender emailSender,
         IAppLogger<CancelLeaveRequestCommandHandler> logger
     )
     {
         _leaveRequestRepository = leaveRequestRepository;
+        _leaveAllocationRepository = leaveAllocationRepository;
         _emailSender = emailSender;
         _logger = logger;
     }
@@ -34,6 +37,20 @@ public class CancelLeaveRequestCommandHandler : IRequestHandler<CancelLeaveReque
         }
 
         leaveRequestToCancel.Cancelled = true;
+
+        if (leaveRequestToCancel.Approved == true)
+        {
+            int daysRequested = HelperFunctions.CalculateRequestedDays(leaveRequestToCancel.StartDate, leaveRequestToCancel.EndDate);
+            var allocation = await _leaveAllocationRepository.GetUserAllocationsAsync(
+                leaveRequestToCancel.RequestingEmployeeId,
+                leaveRequestToCancel.LeaveTypeId
+            );
+            allocation.NumberOfDays += daysRequested;
+            leaveRequestToCancel.Approved = false;
+
+            await _leaveAllocationRepository.UpdateAsync(allocation);
+        }
+
         await _leaveRequestRepository.UpdateAsync(leaveRequestToCancel);
 
         try
